@@ -1,0 +1,34 @@
+# FastAPI for AI microservices
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+
+# Machine Learning
+torch==2.1.2
+transformers==4.36.2
+scikit-learn==1.4.0
+numpy==1.26.3
+pandas==2.1.4
+
+# NLP & Language Models
+langchain==0.1.6
+langchain-openai==0.0.8
+langchain-community==0.0.20
+huggingface-hub==0.20.3
+sentence-transformers==2.2.2
+
+# Document Processing
+pytesseract==0.3.10
+pdf2image==1.16.3
+python-multipart==0.0.6
+
+# Utilities
+python-dotenv==1.0.0
+pydantic==2.5.3
+aiofiles==23.2.1
+httpx==0.26.0
+
+# Redis for caching
+redis==5.0.1
+
+# Async
+anyio==4.2.0
