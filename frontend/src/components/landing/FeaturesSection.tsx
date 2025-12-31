@@ -69,7 +69,7 @@ function FeatureCard({ icon, title, description, color, badge }: FeatureCardProp
       >
         <IconComponent 
           className="w-6 h-6" 
-          style={{ color }} 
+          color={color}
         />
       </div>
       <h3 className="text-lg font-semibold text-slate-900 mb-2">

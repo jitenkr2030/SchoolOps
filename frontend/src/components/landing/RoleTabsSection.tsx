@@ -45,7 +45,7 @@ const RoleCard: React.FC<RoleCardProps> = ({ role, isActive, onPress }) => {
       >
         <IconComponent 
           className="w-7 h-7" 
-          style={{ color: role.color }} 
+          color={role.color}
         />
       </div>
       <span 
