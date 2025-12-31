@@ -1,0 +1,351 @@
+# SchoolOps Test Requirements
+
+## Overview
+This document lists all testing dependencies and configurations required for testing the SchoolOps application.
+
+## Backend Testing Dependencies
+
+### Python Test Packages
+```txt
+# Core testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.1.0
+pytest-xdist>=3.3.0
+pytest-mock>=3.11.0
+pytest-html>=4.1.0
+pytest-metadata>=3.0.0
+
+# Async testing
+httpx>=0.25.0
+respx>=0.20.0
+
+# Database testing
+factory-boy>=3.3.0
+faker>=19.0.0
+sqlalchemy-stubs>=0.4
+
+# Code quality
+flake8>=6.1.0
+black>=23.0.0
+isort>=5.12.0
+mypy>=1.5.0
+```
+
+### Installation
+```bash
+cd backend
+pip install -r requirements-test.txt
+```
+
+## AI Services Testing Dependencies
+
+```txt
+# Core testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.1.0
+pytest-mock>=3.11.0
+
+# ML testing
+torch>=2.1.0
+torchvision>=0.16.0
+transformers>=4.35.0
+numpy>=1.24.0
+pandas>=2.0.0
+
+# Image processing
+Pillow>=10.0.0
+pytesseract>=0.3.10
+
+# API testing
+httpx>=0.25.0
+```
+
+### Installation
+```bash
+cd ai-services
+pip install -r requirements-test.txt
+```
+
+## Frontend Testing Dependencies
+
+```json
+{
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.1.0",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.0.0",
+    "@types/jest": "^29.5.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "eslint-plugin-jest": "^27.6.0",
+    "eslint-plugin-testing-library": "^6.0.0"
+  }
+}
+```
+
+### Installation
+```bash
+cd frontend
+npm install --save-dev @testing-library/jest-dom @testing-library/react \
+  @testing-library/user-event jest @types/jest \
+  jest-environment-jsdom eslint-plugin-jest
+```
+
+## Test Coverage Requirements
+
+### Backend Coverage Target
+- **Line Coverage**: > 80%
+- **Branch Coverage**: > 75%
+- **Function Coverage**: > 85%
+- **Critical Path**: 100% (Auth, CRUD operations)
+
+### AI Services Coverage Target
+- **Line Coverage**: > 70%
+- **Model Function Coverage**: > 80%
+- **API Endpoint Coverage**: > 90%
+
+### Frontend Coverage Target
+- **Component Coverage**: > 80%
+- **Hook Coverage**: > 85%
+- **Util Function Coverage**: > 90%
+
+## Running Tests
+
+### Backend Tests
+```bash
+# Run all tests
+cd backend
+python -m pytest
+
+# Run with coverage
+python -m pytest --cov=app --cov-report=term-missing --cov-report=html
+
+# Run specific test file
+python -m pytest tests/models/test_models.py
+
+# Run with verbose output
+python -m pytest -v
+
+# Run parallel tests
+python -m pytest -n auto
+```
+
+### AI Services Tests
+```bash
+cd ai-services
+python -m pytest --cov=app
+```
+
+### Frontend Tests
+```bash
+cd frontend
+npm test              # Run tests
+npm test -- --watch  # Watch mode
+npm test -- --coverage  # With coverage
+```
+
+## CI/CD Test Commands
+
+### GitHub Actions Integration
+```yaml
+# Backend tests
+- name: Run Backend Tests
+  run: |
+    cd backend
+    python -m pytest --cov=app --cov-report=xml
+
+# AI Services tests
+- name: Run AI Services Tests
+  run: |
+    cd ai-services
+    python -m pytest --cov=app --cov-report=xml
+
+# Frontend tests
+- name: Run Frontend Tests
+  run: |
+    cd frontend
+    npm test -- --coverage
+```
+
+## Test Data Management
+
+### Fixtures Location
+- **Backend**: `backend/tests/fixtures/` or `conftest.py`
+- **AI Services**: `ai-services/tests/fixtures/` or `conftest.py`
+- **Frontend**: `frontend/tests/fixtures/`
+
+### Factory Classes (Backend)
+```python
+# factories.py
+import factory
+from app.models.models import User, Student, Teacher
+
+class UserFactory(factory.alchemy.SQLAlchemyModelFactory):
+    class Meta:
+        model = User
+    
+    email = factory.Sequence(lambda n: f"user{n}@test.com")
+    first_name = factory.Faker("first_name")
+    last_name = factory.Faker("last_name")
+    role = "user"
+    is_active = True
+
+class StudentFactory(factory.alchemy.SQLAlchemyModelFactory):
+    class Meta:
+        model = Student
+    
+    first_name = factory.Faker("first_name")
+    last_name = factory.Faker("last_name")
+    admission_number = factory.Sequence(lambda n: f"STU{n:05d}")
+```
+
+### Mock Data (Frontend)
+```typescript
+// fixtures/students.ts
+export const mockStudents = [
+  {
+    id: 1,
+    firstName: "John",
+    lastName: "Doe",
+    email: "john@school.com",
+    admissionNumber: "STU001",
+  },
+  {
+    id: 2,
+    firstName: "Jane",
+    lastName: "Smith",
+    email: "jane@school.com",
+    admissionNumber: "STU002",
+  },
+];
+```
+
+## Performance Testing
+
+### Tools Recommended
+- **k6**: For API load testing
+- **Locust**: For distributed load testing
+- ** Artillery**: For performance testing
+
+### Sample k6 Test
+```javascript
+// load-test.js
+import http from 'k6/http';
+import { check, sleep } from 'k6';
+
+export const options = {
+  stages: [
+    { duration: '2m', target: 100 },
+    { duration: '5m', target: 100 },
+    { duration: '2m', target: 0 },
+  ],
+  thresholds: {
+    http_req_duration: ['p(95)<500'],
+    http_req_failed: ['rate<0.01'],
+  },
+};
+
+export default function () {
+  const res = http.get('http://localhost:8000/api/v1/students');
+  check(res, {
+    'status is 200': (r) => r.status === 200,
+    'has students': (r) => r.json('data').length > 0,
+  });
+  sleep(1);
+}
+```
+
+## Security Testing
+
+### Tools
+- **OWASP ZAP**: For security scanning
+- **Bandit**: For Python security
+- **ESLint security plugin**: For frontend
+
+### Running Security Checks
+```bash
+# Python security check
+bandit -r backend/
+
+# Frontend security
+npm run lint:security
+```
+
+## Test Environment Variables
+
+### Backend Test Configuration
+```env
+# test.env
+DATABASE_URL=sqlite:///./test.db
+TEST_DATABASE_URL=sqlite:///./test.db
+REDIS_URL=redis://localhost:6379/15
+SECRET_KEY=test-secret-key
+ENVIRONMENT=test
+DEBUG=True
+```
+
+### Frontend Test Configuration
+```env
+# .env.test
+NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1
+NEXT_PUBLIC_GRAPHQL_URL=http://localhost:8000/graphql
+```
+
+## Continuous Integration
+
+### Pre-commit Hooks
+```yaml
+# .pre-commit-config.yaml
+repos:
+  - repo: local
+    hooks:
+      - id: backend-tests
+        name: Run Backend Tests
+        entry: bash -c "cd backend && python -m pytest"
+        pass_filenames: false
+        language: system
+        
+      - id: frontend-tests
+        name: Run Frontend Tests
+        entry: bash -c "cd frontend && npm test"
+        pass_filenames: false
+        language: system
+```
+
+### Installation
+```bash
+pip install pre-commit
+pre-commit install
+```
+
+## Test Reporting
+
+### Generate Test Reports
+```bash
+# Backend HTML report
+python -m pytest --html=report.html
+
+# Backend XML report (for CI)
+python -m pytest --junitxml=test-results.xml
+
+# Frontend
+npm test -- --json --outputFile=test-results.json
+```
+
+### Coverage Reports
+- HTML: `htmlcov/index.html`
+- XML: `coverage.xml`
+- JSON: `coverage.json`
+
+## Best Practices
+
+1. **Test Isolation**: Each test should be independent
+2. **Fast Tests**: Keep unit tests under 100ms
+3. **Descriptive Names**: Use clear test names
+4. **Mock External Services**: Don't call real APIs in unit tests
+5. **Test Edge Cases**: Cover error conditions
+6. **Maintain Test Code**: Test code is production code
+7. **Run Tests Before Commit**: Use pre-commit hooks
+8. **Monitor Flaky Tests**: Fix or remove unstable tests
