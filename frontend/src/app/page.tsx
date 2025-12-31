@@ -11,6 +11,16 @@ import CTASection from '@/components/landing/CTASection';
 import Footer from '@/components/landing/Footer';
 
 export default function LandingPage() {
+  const handleSelectPlan = (planId: string) => {
+    console.log('Selected plan:', planId);
+    // Navigate to registration or contact page based on plan
+    if (planId === 'contact') {
+      window.location.href = '/contact';
+    } else {
+      window.location.href = '/register';
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
@@ -18,9 +28,9 @@ export default function LandingPage() {
         <HeroSection />
         <FeaturesSection />
         <RoleTabsSection />
-        <TestimonialsSection />
-        <PricingSection />
-        <FAQSection />
+        <TestimonialsSection onSelectPlan={handleSelectPlan} />
+        <PricingSection onSelectPlan={handleSelectPlan} />
+        <FAQSection onSelectPlan={handleSelectPlan} />
         <CTASection />
       </main>
       <Footer />

@@ -2,19 +2,19 @@
 
 import { useState } from 'react';
 import { 
-  ShieldAccount, 
-  Teach, 
-  School, 
-  AccountGroup,
+  Shield,
+  GraduationCap,
+  School,
+  Users,
   Check
 } from 'lucide-react';
 import { LANDING_CONFIG } from '@/data/landing-data';
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  'shield-account': ShieldAccount,
-  'teach': Teach,
+  'shield-account': Shield,
+  'teach': GraduationCap,
   'school': School,
-  'account-group': AccountGroup,
+  'account-group': Users,
 };
 
 interface RoleCardProps {
@@ -24,7 +24,7 @@ interface RoleCardProps {
 }
 
 const RoleCard: React.FC<RoleCardProps> = ({ role, isActive, onPress }) => {
-  const IconComponent = iconMap[role.icon] || School;
+  const IconComponent = iconMap[role.icon] || Users;
   
   return (
     <button
@@ -80,11 +80,7 @@ const RoleFeatureList: React.FC<RoleFeatureListProps> = ({ role }) => {
   );
 };
 
-interface RoleTabsSectionProps {
-  onSelectPlan: (planId: string) => void;
-}
-
-export default function RoleTabsSection({ onSelectPlan }: RoleTabsSectionProps) {
+export default function RoleTabsSection() {
   const [activeRole, setActiveRole] = useState(LANDING_CONFIG.userRoles[0]);
   const activeRoleData = LANDING_CONFIG.userRoles.find(r => r.id === activeRole.id) || LANDING_CONFIG.userRoles[0];
 

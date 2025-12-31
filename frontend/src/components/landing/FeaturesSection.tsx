@@ -3,21 +3,21 @@
 import { useState } from 'react';
 import { 
   School,
-  AccountChild,
+  User,
   CalendarCheck,
-  BookOpenVariant,
-  MessageText,
-  CashMultiple,
-  BusSchool,
-  Library,
-  AccountTie,
-  ChartBar,
+  BookOpen,
+  MessageSquare,
+  DollarSign,
+  Bus,
+  Building2,
+  Briefcase,
+  BarChart3,
   Brain,
-  LightbulbOn,
-  Robot,
-  Translate,
+  Lightbulb,
+  Bot,
+  Languages,
   Eye,
-  Route,
+  Map,
   ChevronDown,
   Sparkles
 } from 'lucide-react';
@@ -25,21 +25,21 @@ import { LANDING_CONFIG } from '@/data/landing-data';
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   school: School,
-  'account-child': AccountChild,
+  'account-child': User,
   'calendar-check': CalendarCheck,
-  'book-open-variant': BookOpenVariant,
-  'message-text': MessageText,
-  'cash-multiple': CashMultiple,
-  'bus-school': BusSchool,
-  library: Library,
-  'account-tie': AccountTie,
-  'chart-bar': ChartBar,
+  'book-open-variant': BookOpen,
+  'message-text': MessageSquare,
+  'cash-multiple': DollarSign,
+  'bus-school': Bus,
+  library: Building2,
+  'account-tie': Briefcase,
+  'chart-bar': BarChart3,
   brain: Brain,
-  'lightbulb-on': LightbulbOn,
-  robot: Robot,
-  translate: Translate,
+  'lightbulb-on': Lightbulb,
+  robot: Bot,
+  translate: Languages,
   eye: Eye,
-  route: Route,
+  route: Map,
 };
 
 interface FeatureCardProps {
@@ -85,6 +85,10 @@ function FeatureCard({ icon, title, description, color, badge }: FeatureCardProp
 export default function FeaturesSection() {
   const [activeTab, setActiveTab] = useState<'core' | 'ai'>('core');
   const features = LANDING_CONFIG.features;
+
+  const handleSelectPlan = (planId: string) => {
+    console.log('Selected plan:', planId);
+  };
 
   return (
     <section id="features" className="py-20 sm:py-32 bg-white">
