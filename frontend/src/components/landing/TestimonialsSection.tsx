@@ -1,36 +1,40 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { useRouter } from 'expo-router';
-import { LANDING_CONFIG } from '../../data/landing-data';
+import { Star } from 'lucide-react';
+import { LANDING_CONFIG } from '@/data/landing-data';
 
 interface TestimonialCardProps {
   testimonial: typeof LANDING_CONFIG.testimonials[0];
 }
 
-export const TestimonialCard: React.FC<TestimonialCardProps> = ({ testimonial }) => {
+const TestimonialCard: React.FC<TestimonialCardProps> = ({ testimonial }) => {
   return (
-    <View style={[styles.card, { borderTopWidth: 4, borderTopColor: testimonial.color }]}>
-      <View style={styles.ratingContainer}>
+    <div 
+      className="bg-white rounded-xl p-7 border border-slate-200 shadow-lg hover:shadow-xl transition-shadow"
+      style={{ borderTopWidth: 4, borderTopColor: testimonial.color }}
+    >
+      <div className="flex gap-1 mb-4">
         {[1, 2, 3, 4, 5].map((star) => (
-          <Text key={star} style={styles.starIcon}>★</Text>
+          <Star key={star} className="w-5 h-5 text-amber-400 fill-current" />
         ))}
-      </View>
+      </div>
       
-      <Text style={styles.content}>{testimonial.content}</Text>
+      <p className="text-slate-600 italic leading-relaxed mb-6">
+        "{testimonial.content}"
+      </p>
       
-      <View style={styles.authorContainer}>
-        <View style={[styles.avatar, { backgroundColor: testimonial.color + '20' }]}>
-          <Text style={[styles.avatarText, { color: testimonial.color }]}>
-            {testimonial.avatar}
-          </Text>
-        </View>
-        <View style={styles.authorInfo}>
-          <Text style={styles.authorName}>{testimonial.name}</Text>
-          <Text style={styles.authorRole}>{testimonial.role}</Text>
-          <Text style={styles.schoolName}>{testimonial.school}</Text>
-        </View>
-      </View>
-    </View>
+      <div className="flex items-center gap-4">
+        <div 
+          className="w-12 h-12 rounded-full flex items-center justify-center text-lg font-bold"
+          style={{ backgroundColor: `${testimonial.color}20`, color: testimonial.color }}
+        >
+          {testimonial.avatar}
+        </div>
+        <div>
+          <div className="font-semibold text-slate-900">{testimonial.name}</div>
+          <div className="text-sm text-slate-500">{testimonial.role}</div>
+          <div className="text-xs text-slate-400">{testimonial.school}</div>
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -38,158 +42,43 @@ interface TestimonialsSectionProps {
   onSelectPlan: (planId: string) => void;
 }
 
-export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ onSelectPlan }) => {
+export default function TestimonialsSection({ onSelectPlan }: TestimonialsSectionProps) {
   return (
-    <View style={styles.container} id="testimonials">
-      <View style={styles.sectionHeader}>
-        <Text style={styles.sectionTitle}>Trusted by Schools Worldwide</Text>
-        <Text style={styles.sectionSubtitle}>
-          See what educators, administrators, and parents are saying about SchoolOps
-        </Text>
-      </View>
-      
-      <ScrollView 
-        horizontal 
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.cardsContainer}
-      >
-        {LANDING_CONFIG.testimonials.map((testimonial) => (
-          <TestimonialCard key={testimonial.id} testimonial={testimonial} />
-        ))}
-      </ScrollView>
-      
-      <View style={styles.trustIndicators}>
-        <Text style={styles.trustTitle}>Trusted by leading institutions</Text>
-        <View style={styles.logoGrid}>
-          {['Delhi Public School', 'Ryan International', 'DAV Public', 'Jain Heritage', 'Narayana Group'].map((school, index) => (
-            <View key={index} style={styles.logoItem}>
-              <Text style={styles.schoolLogo}>{school.charAt(0)}</Text>
-            </View>
+    <section id="testimonials" className="py-20 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+            Trusted by Schools Worldwide
+          </h2>
+          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            See what educators, administrators, and parents are saying about SchoolOps
+          </p>
+        </div>
+        
+        <div className="flex overflow-x-auto gap-6 pb-8 px-4 snap-x snap-mandatory scrollbar-hide">
+          {LANDING_CONFIG.testimonials.map((testimonial) => (
+            <div key={testimonial.id} className="flex-shrink-0 w-[360px] snap-center">
+              <TestimonialCard testimonial={testimonial} />
+            </div>
           ))}
-        </View>
-      </View>
-    </View>
+        </div>
+        
+        <div className="mt-16 text-center">
+          <p className="text-sm text-slate-500 uppercase tracking-wider mb-8">
+            Trusted by leading institutions
+          </p>
+          <div className="flex flex-wrap justify-center gap-6">
+            {['Delhi Public School', 'Ryan International', 'DAV Public', 'Jain Heritage', 'Narayana Group'].map((school, index) => (
+              <div 
+                key={index}
+                className="w-24 h-12 bg-slate-100 rounded-lg flex items-center justify-center"
+              >
+                <span className="text-xl font-bold text-slate-400">{school.charAt(0)}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
   );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    paddingVertical: 60,
-    paddingHorizontal: 20,
-    backgroundColor: '#FFFFFF',
-  },
-  sectionHeader: {
-    alignItems: 'center',
-    marginBottom: 40,
-  },
-  sectionTitle: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    color: '#1F2937',
-    marginBottom: 12,
-    textAlign: 'center',
-  },
-  sectionSubtitle: {
-    fontSize: 18,
-    color: '#6B7280',
-    textAlign: 'center',
-    maxWidth: 600,
-  },
-  cardsContainer: {
-    paddingHorizontal: 20,
-    justifyContent: 'center',
-  },
-  card: {
-    width: 360,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 16,
-    padding: 28,
-    marginHorizontal: 12,
-    borderWidth: 1,
-    borderColor: '#E5E7EB',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.08,
-    shadowRadius: 12,
-    elevation: 5,
-  },
-  ratingContainer: {
-    flexDirection: 'row',
-    marginBottom: 16,
-  },
-  starIcon: {
-    fontSize: 18,
-    color: '#F59E0B',
-    marginRight: 4,
-  },
-  content: {
-    fontSize: 15,
-    color: '#4B5563',
-    lineHeight: 26,
-    marginBottom: 24,
-    fontStyle: 'italic',
-  },
-  authorContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  avatar: {
-    width: 52,
-    height: 52,
-    borderRadius: 26,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 14,
-  },
-  avatarText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  authorInfo: {
-    flex: 1,
-  },
-  authorName: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#1F2937',
-  },
-  authorRole: {
-    fontSize: 14,
-    color: '#6B7280',
-  },
-  schoolName: {
-    fontSize: 13,
-    color: '#9CA3AF',
-    marginTop: 2,
-  },
-  trustIndicators: {
-    marginTop: 60,
-    alignItems: 'center',
-  },
-  trustTitle: {
-    fontSize: 14,
-    color: '#9CA3AF',
-    marginBottom: 24,
-    textTransform: 'uppercase',
-    letterSpacing: 1,
-  },
-  logoGrid: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-    gap: 20,
-  },
-  logoItem: {
-    width: 100,
-    height: 50,
-    backgroundColor: '#F3F4F6',
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  schoolLogo: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#9CA3AF',
-  },
-});
+}
