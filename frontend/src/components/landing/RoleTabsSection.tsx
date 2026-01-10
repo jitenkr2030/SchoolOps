@@ -6,11 +6,12 @@ import {
   GraduationCap,
   School,
   Users,
-  Check
+  Check,
+  LucideIcon
 } from 'lucide-react';
 import { LANDING_CONFIG } from '@/data/landing-data';
 
-const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+const iconMap: Record<string, LucideIcon> = {
   'shield-account': Shield,
   'teach': GraduationCap,
   'school': School,
@@ -45,7 +46,7 @@ const RoleCard: React.FC<RoleCardProps> = ({ role, isActive, onPress }) => {
       >
         <IconComponent 
           className="w-7 h-7" 
-          color={role.color}
+          style={{ color: role.color }} 
         />
       </div>
       <span 

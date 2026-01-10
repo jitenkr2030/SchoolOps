@@ -19,11 +19,12 @@ import {
   Eye,
   Map,
   ChevronDown,
-  Sparkles
+  Sparkles,
+  LucideIcon
 } from 'lucide-react';
 import { LANDING_CONFIG } from '@/data/landing-data';
 
-const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+const iconMap: Record<string, LucideIcon> = {
   school: School,
   'account-child': User,
   'calendar-check': CalendarCheck,
@@ -69,7 +70,7 @@ function FeatureCard({ icon, title, description, color, badge }: FeatureCardProp
       >
         <IconComponent 
           className="w-6 h-6" 
-          color={color}
+          style={{ color }}
         />
       </div>
       <h3 className="text-lg font-semibold text-slate-900 mb-2">
