@@ -11,7 +11,8 @@ import {
 import { LANDING_CONFIG } from '@/data/landing-data';
 
 export default function Footer() {
-  const { footer, company } = LANDING_CONFIG;
+  const { footer } = LANDING_CONFIG;
+  const { company } = footer;
 
   return (
     <footer className="bg-slate-900 text-slate-300">
