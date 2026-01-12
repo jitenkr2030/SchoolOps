@@ -1,14 +1,18 @@
 """
 Database configuration and connection management
+Supports both async PostgreSQL (asyncpg) and synchronous operations
 """
 
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
 from sqlalchemy.orm import declarative_base
 from app.config import settings
 
-# Create async engine
+# Import asyncpg for better async PostgreSQL performance
+import asyncpg
+
+# Create async engine with asyncpg driver
 engine = create_async_engine(
-    settings.DATABASE_URL,
+    settings.DATABASE_URL.replace("postgresql://", "postgresql+asyncpg://"),
     echo=settings.DEBUG,
     pool_pre_ping=True,
     pool_size=10,
