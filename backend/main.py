@@ -49,7 +49,12 @@ app = FastAPI(
     - **Academics**: Classes, subjects, timetables, and assessments
     - **Attendance**: Student and staff attendance tracking
     - **Finance**: Fee management and payment processing
-    - **Transport**: Bus tracking and route management
+    - **Transport**: Bus tracking, routes, and student transport allocation
+    - **Hostel**: Building, room, and bed management with allocation
+    - **Inventory**: Asset and stock management
+    - **Library**: Book catalog, circulation, and member management
+    - **Communication**: Real-time chat, announcements, and meetings
+    - **Reports**: Comprehensive analytics and dashboard statistics
     - **AI Insights**: Self-hosted AI for at-risk student detection and forecasting
     
     ## Authentication
@@ -84,6 +89,18 @@ from app.api.students import router as students_router
 from app.api.fees import router as fees_router
 from app.api.payments import router as payments_router
 from app.api.sms import router as sms_router
+from app.api.staff import router as staff_router
+from app.api.academics import router as academics_router
+from app.api.attendance import router as attendance_router
+from app.api.ai import router as ai_router
+from app.api.inventory import router as inventory_router
+from app.api.assets import router as assets_router
+from app.api.suppliers import router as suppliers_router
+from app.api.library import router as library_router
+from app.api.transport import router as transport_router
+from app.api.hostel import router as hostel_router
+from app.api.communication import router as communication_router
+from app.api.reports import router as reports_router
 
 # Include REST API routers
 app.include_router(auth_router, prefix="/api/v1")
@@ -91,6 +108,18 @@ app.include_router(students_router, prefix="/api/v1")
 app.include_router(fees_router, prefix="/api/v1")
 app.include_router(payments_router, prefix="/api/v1")
 app.include_router(sms_router, prefix="/api/v1")
+app.include_router(staff_router, prefix="/api/v1")
+app.include_router(academics_router, prefix="/api/v1")
+app.include_router(attendance_router, prefix="/api/v1")
+app.include_router(ai_router, prefix="/api/v1")
+app.include_router(inventory_router, prefix="/api/v1")
+app.include_router(assets_router, prefix="/api/v1")
+app.include_router(suppliers_router, prefix="/api/v1")
+app.include_router(library_router, prefix="/api/v1")
+app.include_router(transport_router, prefix="/api/v1")
+app.include_router(hostel_router, prefix="/api/v1")
+app.include_router(communication_router, prefix="/api/v1")
+app.include_router(reports_router, prefix="/api/v1")
 
 # ==================== GraphQL Router ====================
 
@@ -150,6 +179,11 @@ async def root():
             "Attendance Tracking",
             "Fee Management",
             "Transport Management",
+            "Hostel Management",
+            "Inventory & Assets",
+            "Library Management",
+            "Communication (Chat & Announcements)",
+            "Reports & Dashboards",
             "Self-Hosted AI Integration"
         ]
     }

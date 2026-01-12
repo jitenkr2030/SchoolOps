@@ -1,13 +1,8 @@
 """
-Core Utilities Package
+AI Core Package
+Self-hosted AI provider implementations
 """
 
-from app.core.security import (
-    get_current_user,
-    require_roles,
-    RoleChecker,
-    bearer_scheme
-)
 from app.core.ai.provider import (
     AIProvider,
     AIProviderType,
@@ -19,10 +14,6 @@ from app.core.ai.provider import (
 )
 
 __all__ = [
-    "get_current_user",
-    "require_roles",
-    "RoleChecker",
-    "bearer_scheme",
     "AIProvider",
     "AIProviderType",
     "AIResponse",
