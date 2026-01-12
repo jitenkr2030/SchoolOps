@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { GraduationCap, ArrowRight, Brain, Lightbulb, Bot, Globe, Eye, Route, Sparkles, Mail, Phone, MapPin } from 'lucide-react';
+import { GraduationCap, ArrowRight, Brain, Lightbulb, Bot, Globe, Eye, Route, Sparkles, Mail, Phone, MapPin, Star } from 'lucide-react';
 
 const aiFeatures = [
   {
