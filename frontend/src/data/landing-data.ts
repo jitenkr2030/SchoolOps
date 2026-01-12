@@ -339,11 +339,11 @@ export const LANDING_CONFIG = {
       },
     },
     product: [
-      { label: 'Features', href: '#features' },
-      { label: 'Pricing', href: '#pricing' },
-      { label: 'AI Features', href: '#ai-features' },
-      { label: 'Mobile App', href: '#mobile' },
-      { label: 'Integrations', href: '#integrations' },
+      { label: 'Features', href: '/features' },
+      { label: 'Pricing', href: '/pricing' },
+      { label: 'AI Features', href: '/product/ai' },
+      { label: 'Mobile App', href: '/mobile-app' },
+      { label: 'Integrations', href: '/integrations' },
     ],
     companyLinks: [
       { label: 'About Us', href: '/about' },
