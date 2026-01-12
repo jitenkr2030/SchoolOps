@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { GraduationCap, ArrowRight, CheckCircle2, Mail, Phone, MapPin, Users, Calendar, BookOpen, MessageText, CashMultiple, BusSchool } from 'lucide-react';
+import { GraduationCap, ArrowRight, CheckCircle2, Mail, Phone, MapPin, Users, Calendar, BookOpen, MessageSquare, CreditCard, Bus } from 'lucide-react';
 
 const features = [
   {
@@ -21,19 +21,19 @@ const features = [
     color: '#F59E0B',
   },
   {
-    icon: MessageText,
+    icon: MessageSquare,
     title: 'Communication Hub',
     description: 'Announcements, parent-teacher messaging, and automated notifications for all stakeholders.',
     color: '#EC4899',
   },
   {
-    icon: CashMultiple,
+    icon: CreditCard,
     title: 'Fees & Finance',
     description: 'Automated fee collection, online payments, expense tracking, and financial reporting.',
     color: '#06B6D4',
   },
   {
-    icon: BusSchool,
+    icon: Bus,
     title: 'Transport & Hostel',
     description: 'GPS-enabled transport tracking, hostel room allocation, and mess management.',
     color: '#84CC16',

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { GraduationCap, ArrowRight, Brain, LightbulbOn, Robot, Translate, Eye, Route, Sparkles, Mail, Phone, MapPin } from 'lucide-react';
+import { GraduationCap, ArrowRight, Brain, Lightbulb, Bot, Globe, Eye, Route, Sparkles, Mail, Phone, MapPin } from 'lucide-react';
 
 const aiFeatures = [
   {
@@ -10,21 +10,21 @@ const aiFeatures = [
     features: ['At-risk student detection', 'Enrollment forecasting', 'Fee churn prediction', 'Performance analytics'],
   },
   {
-    icon: LightbulbOn,
+    icon: Lightbulb,
     title: 'Personalization',
     description: 'Adaptive learning paths and smart recommendations tailored to each student\'s unique learning style.',
     color: '#10B981',
     features: ['Adaptive learning paths', 'Smart recommendations', 'Remedial assignments', 'Study suggestions'],
   },
   {
-    icon: Robot,
+    icon: Bot,
     title: 'Automation Assistants',
     description: 'Intelligent automation for quizzes, grading, and notifications to save educators valuable time.',
     color: '#F59E0B',
     features: ['AI quiz generation', 'Auto-grading', 'Smart notifications', 'Report generation'],
   },
   {
-    icon: Translate,
+    icon: Globe,
     title: 'NLP Chatbot',
     description: 'Multilingual support with voice capabilities for seamless communication across language barriers.',
     color: '#8B5CF6',
