@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { GraduationCap, ArrowRight, CheckCircle2, Mail, Phone, MapPin, CreditCard, MessageSquare, Key, Cloud, FileText, Users } from 'lucide-react';
+import { GraduationCap, ArrowRight, CheckCircle2, Mail, Phone, MapPin, CreditCard, MessageSquare, Key, Cloud, FileText, Users, Clock } from 'lucide-react';
 
 const integrations = [
   {
