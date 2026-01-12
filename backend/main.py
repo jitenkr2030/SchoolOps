@@ -81,10 +81,14 @@ app.add_middleware(
 # Import API routers
 from app.api.auth import router as auth_router
 from app.api.students import router as students_router
+from app.api.fees import router as fees_router
+from app.api.payments import router as payments_router
 
 # Include REST API routers
 app.include_router(auth_router, prefix="/api/v1")
 app.include_router(students_router, prefix="/api/v1")
+app.include_router(fees_router, prefix="/api/v1")
+app.include_router(payments_router, prefix="/api/v1")
 
 # ==================== GraphQL Router ====================
 
