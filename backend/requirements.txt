@@ -37,3 +37,9 @@ reportlab==4.0.8
 # Async
 anyio==4.2.0
 asyncio==3.4.3
+
+# SMS Services - Paid (with free test mode)
+twilio>=9.0.0
+
+# Email-to-SMS Support - Free
+aiosmtplib>=3.0.0
